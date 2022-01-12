@@ -21,18 +21,31 @@ namespace WPMAverager
         {
             if (!int.TryParse(txtInput.Text, out int output))
             {
-                //error
+                MessageBox.Show("You must enter a valid number!", "Bad input", default, MessageBoxIcon.Error);
                 return;
             }
+
+            if (lstResults.Items.Count >= 5)
+                lstResults.Items.RemoveAt(0);
 
             lstResults.Items.Add(output);
 
             int total = 0;
-            foreach(int result in lstResults.Items)
+
+            foreach (int result in lstResults.Items)
             {
                 total += result;
             }
-            lblAverage.Text = $"Average: {total/lstResults.Items.Count}";
+
+            lblAverage.Text = $"Average: {total / lstResults.Items.Count}";
+            txtInput.Clear();
+            txtInput.Focus();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            lstResults.Items.Clear();
+            txtInput.Clear();
             txtInput.Focus();
         }
     }
